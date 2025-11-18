@@ -77,34 +77,35 @@ public class BaseShelfBlockEntity extends BlockEntity implements MenuProvider, I
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider)
+    protected void saveAdditional(CompoundTag tag)
     {
-        super.saveAdditional(tag, provider);
-        ContainerHelper.saveAllItems(tag, inventory, provider);
+        super.saveAdditional(tag);
+        ContainerHelper.saveAllItems(tag, inventory);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider)
+    public void load(CompoundTag tag)
     {
-        super.loadAdditional(tag, provider);
-        ContainerHelper.loadAllItems(tag, inventory, provider);
+        super.load(tag);
+        ContainerHelper.loadAllItems(tag, inventory);
     }
 
     @Nullable
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+    public ClientboundBlockEntityDataPacket getUpdatePacket()
+    {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider provider)
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt)
     {
-        handleUpdateTag(pkt.getTag(), provider);
+        handleUpdateTag(pkt.getTag());
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        return saveWithoutMetadata(provider);
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
     }
 
     @Override

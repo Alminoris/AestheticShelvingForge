@@ -1,6 +1,6 @@
 package net.alminoris.aestheticshelving.block.custom;
 
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.InteractionHand;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
 import net.alminoris.aestheticshelving.block.entity.StandingShelfBlockEntity;
 import net.alminoris.aestheticshelving.menu.StandingShelfMenu;
@@ -44,8 +44,6 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final MapCodec<StandingShelfBlock> CODEC = StandingShelfBlock.simpleCodec(StandingShelfBlock::new);
-
     public StandingShelfBlock(Properties settings)
     {
         super(settings);
@@ -58,14 +56,10 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
         builder.add(FACING, WATERLOGGED);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
+    
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
@@ -81,7 +75,7 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state)
+    public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
     }
@@ -100,7 +94,7 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                      LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         if (state.getValue(WATERLOGGED))
@@ -133,18 +127,18 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit)
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
         if (!world.isClientSide)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (player instanceof ServerPlayer serverPlayer)
             {
-                BlockPos poss = blockEntity.getBlockPos();
+                
                 serverPlayer.openMenu(new SimpleMenuProvider(
                         (containerId, inventory, pl) -> new StandingShelfMenu(containerId, inventory, (StandingShelfBlockEntity) blockEntity),
                         state.getBlock().getName()
-                ), poss);
+                ));
             }
         }
 

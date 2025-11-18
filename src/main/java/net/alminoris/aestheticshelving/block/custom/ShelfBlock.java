@@ -1,6 +1,6 @@
 package net.alminoris.aestheticshelving.block.custom;
 
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.InteractionHand;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
 import net.alminoris.aestheticshelving.block.entity.ShelfBlockEntity;
 import net.alminoris.aestheticshelving.menu.ShelfMenu;
@@ -66,8 +66,6 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public static final EnumProperty<Variant> VARIANT = EnumProperty.create("variant", Variant.class);
 
-    public static final MapCodec<ShelfBlock> CODEC = ShelfBlock.simpleCodec(ShelfBlock::new);
-
     public ShelfBlock(BlockBehaviour.Properties settings)
     {
         super(settings);
@@ -80,14 +78,10 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         builder.add(FACING, VARIANT, WATERLOGGED);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
+    
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
@@ -103,7 +97,7 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state)
+    public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
     }
@@ -122,7 +116,7 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                      LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         if (state.getValue(WATERLOGGED))
@@ -170,18 +164,18 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit)
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
         if (!world.isClientSide)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (player instanceof ServerPlayer serverPlayer)
             {
-                BlockPos poss = blockEntity.getBlockPos();
+                
                 serverPlayer.openMenu(new SimpleMenuProvider(
                         (containerId, inventory, pl) -> new ShelfMenu(containerId, inventory, (ShelfBlockEntity) blockEntity),
                         state.getBlock().getName()
-                ), poss);
+                ));
             }
         }
 
@@ -203,7 +197,7 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos)
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos)
     {
         Direction facing = state.getValue(FACING);
         BlockPos supportPos = pos.offset(facing.getNormal());

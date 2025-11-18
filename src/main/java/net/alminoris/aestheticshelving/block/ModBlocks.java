@@ -27,7 +27,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("shelf_"+name,
-                    () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new ShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 
@@ -36,7 +36,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("standing_shelf_"+name,
-                    () -> new StandingShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new StandingShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 
@@ -45,7 +45,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("ceiling_shelf_"+name,
-                    () -> new CeilingShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new CeilingShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 
@@ -54,7 +54,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("corner_shelf_"+name,
-                    () -> new CornerShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new CornerShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 
@@ -63,7 +63,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("ladder_shelf_"+name,
-                    () -> new LadderShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new LadderShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 
@@ -72,7 +72,7 @@ public class ModBlocks
         for(String name : BlockSetsHelper.getWoods())
         {
             put(name, registerBlock("tower_shelf_"+name,
-                    () -> new TowerShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS))));
+                    () -> new TowerShelfBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))));
         }
     }};
 

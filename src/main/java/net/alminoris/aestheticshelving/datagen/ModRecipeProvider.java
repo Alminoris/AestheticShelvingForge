@@ -5,8 +5,8 @@ import net.alminoris.aestheticshelving.util.helper.BlockSetsHelper;
 import net.alminoris.aestheticshelving.util.helper.ModJsonHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -17,16 +17,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder
 {
     public ModRecipeProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pRegistries)
     {
-        super(pOutput, pRegistries);
+        super(pOutput);
     }
 
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput recipeExporter)
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeExporter)
     {
         for(String name : BlockSetsHelper.WOODS)
         {
@@ -186,7 +187,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }
     }
 
-    private void registerShelf(RecipeOutput recipeExporter, Block output, Block ing1, Block ing2)
+    private void registerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
                 .pattern("#/#")
@@ -197,7 +198,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeExporter);
     }
 
-    private void registerStandingShelf(RecipeOutput recipeExporter, Block output, Block ing1, Block ing2)
+    private void registerStandingShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
                 .pattern("/#")
@@ -209,7 +210,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeExporter);
     }
 
-    private void registerCornerShelf(RecipeOutput recipeExporter, Block output, Block ing1, Block ing2)
+    private void registerCornerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
                 .pattern("#/")
@@ -221,7 +222,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeExporter);
     }
 
-    private void registerTowerShelf(RecipeOutput recipeExporter, Block output, Block ing1, Block ing2)
+    private void registerTowerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 3)
                 .pattern(" / ")
@@ -234,7 +235,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeExporter);
     }
 
-    private void registerLadderShelf(RecipeOutput recipeExporter, Block output, Block ing1, Block ing2)
+    private void registerLadderShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 2)
                 .pattern("#/ ")
@@ -247,7 +248,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeExporter);
     }
 
-    private void registerCeilingShelf(RecipeOutput recipeExporter, Block output, Block ing2)
+    private void registerCeilingShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing2)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
                 .pattern("# #")

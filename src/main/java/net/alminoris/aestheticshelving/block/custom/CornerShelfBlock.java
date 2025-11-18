@@ -1,6 +1,5 @@
 package net.alminoris.aestheticshelving.block.custom;
 
-import com.mojang.serialization.MapCodec;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
 import net.alminoris.aestheticshelving.block.entity.CornerShelfBlockEntity;
 import net.alminoris.aestheticshelving.menu.CornerShelfMenu;
@@ -9,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -47,8 +47,6 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final MapCodec<CornerShelfBlock> CODEC = CornerShelfBlock.simpleCodec(CornerShelfBlock::new);
-
     public CornerShelfBlock(Properties settings)
     {
         super(settings);
@@ -61,14 +59,10 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
         builder.add(FACING, WATERLOGGED);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
+    
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
@@ -86,7 +80,7 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state)
+    public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
     }
@@ -105,7 +99,7 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                      LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         if (state.getValue(WATERLOGGED))
@@ -154,18 +148,18 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit)
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
         if (!world.isClientSide)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (player instanceof ServerPlayer serverPlayer)
             {
-                BlockPos poss = blockEntity.getBlockPos();
+                
                 serverPlayer.openMenu(new SimpleMenuProvider(
                         (containerId, inventory, pl) -> new CornerShelfMenu(containerId, inventory, (CornerShelfBlockEntity) blockEntity),
                         state.getBlock().getName()
-                ), poss);
+                ));
             }
         }
 
@@ -180,7 +174,7 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos)
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos)
     {
         Direction facing = state.getValue(FACING);
         BlockPos supportPos = pos.offset(facing.getNormal());

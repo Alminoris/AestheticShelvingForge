@@ -1,6 +1,6 @@
 package net.alminoris.aestheticshelving.block.custom;
 
-import com.mojang.serialization.MapCodec;
+import net.minecraft.world.InteractionHand;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
 import net.alminoris.aestheticshelving.block.entity.LadderShelfBlockEntity;
 import net.alminoris.aestheticshelving.block.entity.ShelfBlockEntity;
@@ -53,8 +53,6 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final MapCodec<LadderShelfBlock> CODEC = LadderShelfBlock.simpleCodec(LadderShelfBlock::new);
-
     public LadderShelfBlock(Properties settings)
     {
         super(settings);
@@ -67,26 +65,22 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
         builder.add(FACING, WATERLOGGED);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
-    }
+    
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
 
     @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
 
     @Override
-    protected VoxelShape getVisualShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
+    public VoxelShape getVisualShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context)
     {
         return getRotatedShape(state);
     }
@@ -106,7 +100,7 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state)
+    public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
     }
@@ -125,7 +119,7 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                      LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         if (state.getValue(WATERLOGGED))
@@ -158,18 +152,18 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit)
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
         if (!world.isClientSide)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (player instanceof ServerPlayer serverPlayer)
             {
-                BlockPos poss = blockEntity.getBlockPos();
+                
                 serverPlayer.openMenu(new SimpleMenuProvider(
                         (containerId, inventory, pl) -> new LadderShelfMenu(containerId, inventory, (LadderShelfBlockEntity) blockEntity),
                         state.getBlock().getName()
-                ), poss);
+                ));
             }
         }
 

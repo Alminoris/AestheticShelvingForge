@@ -21,7 +21,7 @@ public class ModJsonTemplates
               ],
               "result": {
                 "count": COUNT,
-                "id": "aestheticshelving:OUTPUT_NAME"
+                "item": "aestheticshelving:OUTPUT_NAME"
               }
             }
             """;
