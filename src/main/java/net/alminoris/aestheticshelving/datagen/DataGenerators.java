@@ -4,9 +4,9 @@ import net.alminoris.aestheticshelving.AestheticShelving;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod.EventBusSubscriber(modid = AestheticShelving.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators
@@ -17,17 +17,17 @@ public class DataGenerators
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
+        generator.addProvider(new ModLootTableProvider(generator));
+        generator.addProvider(new ModRecipeProvider(generator));
 
-        generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(new ModBlockStateProvider(generator, existingFileHelper));
+        generator.addProvider(new ModItemModelProvider(generator, existingFileHelper));
 
-        generator.addProvider(event.includeClient(), new ModLanguageProviderEnUs(generator));
-        generator.addProvider(event.includeClient(), new ModLanguageProviderDeDe(generator));
-        generator.addProvider(event.includeClient(), new ModLanguageProviderEsEs(generator));
-        generator.addProvider(event.includeClient(), new ModLanguageProviderFrFr(generator));
-        generator.addProvider(event.includeClient(), new ModLanguageProviderRuRu(generator));
-        generator.addProvider(event.includeClient(), new ModLanguageProviderUkUa(generator));
+        generator.addProvider(new ModLanguageProviderEnUs(generator));
+        generator.addProvider(new ModLanguageProviderDeDe(generator));
+        generator.addProvider(new ModLanguageProviderEsEs(generator));
+        generator.addProvider(new ModLanguageProviderFrFr(generator));
+        generator.addProvider(new ModLanguageProviderRuRu(generator));
+        generator.addProvider(new ModLanguageProviderUkUa(generator));
     }
 }

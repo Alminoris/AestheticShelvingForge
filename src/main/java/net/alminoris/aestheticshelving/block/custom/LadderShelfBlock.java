@@ -161,7 +161,7 @@ public class LadderShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof LadderShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

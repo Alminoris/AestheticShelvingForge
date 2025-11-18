@@ -3,6 +3,7 @@ package net.alminoris.aestheticshelving.item;
 import net.alminoris.aestheticshelving.AestheticShelving;
 import net.alminoris.aestheticshelving.block.ModBlocks;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
@@ -37,7 +38,7 @@ public class ModItemGroups
 
         @Override
         public Component getDisplayName() {
-            return Component.translatable("itemGroup." + AestheticShelving.MOD_ID + ".ashelftab");
+            return new TranslatableComponent("itemGroup." + AestheticShelving.MOD_ID + ".ashelftab");
         }
     };
 

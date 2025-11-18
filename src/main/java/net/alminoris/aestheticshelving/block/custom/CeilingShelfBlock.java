@@ -144,7 +144,7 @@ public class CeilingShelfBlock extends BaseEntityBlock implements SimpleWaterlog
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof CeilingShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

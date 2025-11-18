@@ -157,7 +157,7 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof CornerShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

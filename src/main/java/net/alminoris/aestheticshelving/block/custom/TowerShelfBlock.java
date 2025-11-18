@@ -137,7 +137,7 @@ public class TowerShelfBlock extends BaseEntityBlock implements SimpleWaterlogge
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof TowerShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

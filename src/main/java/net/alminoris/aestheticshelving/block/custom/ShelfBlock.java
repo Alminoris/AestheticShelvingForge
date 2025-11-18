@@ -173,7 +173,7 @@ public class ShelfBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

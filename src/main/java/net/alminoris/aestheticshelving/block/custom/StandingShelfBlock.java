@@ -136,7 +136,7 @@ public class StandingShelfBlock extends BaseEntityBlock implements SimpleWaterlo
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof StandingShelfBlockEntity shelf)
             {
-                NetworkHooks.openScreen(serverPlayer, shelf, pos);
+                NetworkHooks.openGui(serverPlayer, shelf, pos);
             }
         }
 

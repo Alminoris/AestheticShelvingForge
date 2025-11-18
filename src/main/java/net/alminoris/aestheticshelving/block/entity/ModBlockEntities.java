@@ -16,7 +16,7 @@ import java.util.List;
 public class ModBlockEntities
 {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, AestheticShelving.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, AestheticShelving.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<ShelfBlockEntity>> SHELF_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("shelf_be",() ->
