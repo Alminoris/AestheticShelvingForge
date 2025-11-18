@@ -40,7 +40,8 @@ public class CeilingShelfMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public ItemStack quickMoveStack(Player player, int index)
+    {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
