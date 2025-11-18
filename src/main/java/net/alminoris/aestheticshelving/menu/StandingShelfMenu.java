@@ -18,7 +18,7 @@ public class StandingShelfMenu extends AbstractContainerMenu {
     {
         super(ModMenus.STANDING_SHELF_MENU.get(), containerId);
         this.blockEntity = blockEntity;
-        this.access = ContainerLevelAccess.create(playerInventory.player.level(), blockEntity.getBlockPos());
+        this.access = ContainerLevelAccess.create(playerInventory.player.getLevel(), blockEntity.getBlockPos());
 
         this.addSlot(new OneItemSlot(blockEntity, 0, 71, 21));
         this.addSlot(new OneItemSlot(blockEntity, 1, 89, 21));
@@ -32,7 +32,7 @@ public class StandingShelfMenu extends AbstractContainerMenu {
     // Client-side constructor (Forge syncs BlockPos automatically)
     public StandingShelfMenu(int containerId, Inventory playerInventory, FriendlyByteBuf friendlyByteBuf)
     {
-        this(containerId, playerInventory, (StandingShelfBlockEntity) playerInventory.player.level().getBlockEntity(friendlyByteBuf.readBlockPos()));
+        this(containerId, playerInventory, (StandingShelfBlockEntity) playerInventory.player.getLevel().getBlockEntity(friendlyByteBuf.readBlockPos()));
     }
 
     @Override

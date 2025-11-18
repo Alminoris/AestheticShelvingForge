@@ -18,7 +18,7 @@ public class CornerShelfMenu extends AbstractContainerMenu {
     {
         super(ModMenus.CORNER_SHELF_MENU.get(), containerId);
         this.blockEntity = blockEntity;
-        this.access = ContainerLevelAccess.create(playerInventory.player.level(), blockEntity.getBlockPos());
+        this.access = ContainerLevelAccess.create(playerInventory.player.getLevel(), blockEntity.getBlockPos());
 
         this.addSlot(new OneItemSlot(blockEntity, 0, 71, 34));
         this.addSlot(new OneItemSlot(blockEntity, 1, 89, 34));
@@ -30,7 +30,7 @@ public class CornerShelfMenu extends AbstractContainerMenu {
     // Client-side constructor (Forge syncs BlockPos automatically)
     public CornerShelfMenu(int containerId, Inventory playerInventory, FriendlyByteBuf friendlyByteBuf)
     {
-        this(containerId, playerInventory, (CornerShelfBlockEntity) playerInventory.player.level().getBlockEntity(friendlyByteBuf.readBlockPos()));
+        this(containerId, playerInventory, (CornerShelfBlockEntity) playerInventory.player.getLevel().getBlockEntity(friendlyByteBuf.readBlockPos()));
     }
 
     @Override

@@ -1,10 +1,11 @@
 package net.alminoris.aestheticshelving.menu;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.alminoris.aestheticshelving.AestheticShelving;
 import net.alminoris.aestheticshelving.block.ModBlocks;
 import net.alminoris.aestheticshelving.block.entity.LadderShelfBlockEntity;
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -38,19 +39,19 @@ public class LadderShelfScreen extends AbstractContainerScreen<LadderShelfMenu>
     }
 
     @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY)
+    protected void renderLabels(PoseStack graphics, int mouseX, int mouseY)
     {
         LadderShelfBlockEntity blockEntity = Objects.requireNonNull(menu.getSlot(0).container
                 instanceof LadderShelfBlockEntity be ? be : null);
 
-        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY,
-                WOOD_COLORS.get(getWoodName(ModBlocks.LADDER_SHELVES, blockEntity)), false);
-        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY,
-                WOOD_COLORS.get(getWoodName(ModBlocks.LADDER_SHELVES, blockEntity)), false);
+        drawString(graphics, this.font, this.title, this.titleLabelX, this.titleLabelY,
+                WOOD_COLORS.get(getWoodName(ModBlocks.LADDER_SHELVES, blockEntity)));
+        drawString(graphics, this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY,
+                WOOD_COLORS.get(getWoodName(ModBlocks.LADDER_SHELVES, blockEntity)));
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(PoseStack graphics, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, TEXTURE);
@@ -58,11 +59,11 @@ public class LadderShelfScreen extends AbstractContainerScreen<LadderShelfMenu>
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        graphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight+16);
+        blit(graphics, x, y, 0, 0, imageWidth, imageHeight+16);
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack graphics, int mouseX, int mouseY, float partialTicks) {
         renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTicks);
         renderTooltip(graphics, mouseX, mouseY);

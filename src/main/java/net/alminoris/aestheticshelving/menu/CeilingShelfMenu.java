@@ -18,7 +18,7 @@ public class CeilingShelfMenu extends AbstractContainerMenu {
     {
         super(ModMenus.CEILING_SHELF_MENU.get(), containerId);
         this.blockEntity = blockEntity;
-        this.access = ContainerLevelAccess.create(playerInventory.player.level(), blockEntity.getBlockPos());
+        this.access = ContainerLevelAccess.create(playerInventory.player.getLevel(), blockEntity.getBlockPos());
 
         this.addSlot(new OneItemSlot(blockEntity, 0, 62, 34));
         this.addSlot(new OneItemSlot(blockEntity, 1, 80, 34));
@@ -31,7 +31,7 @@ public class CeilingShelfMenu extends AbstractContainerMenu {
     // Client-side constructor (Forge syncs BlockPos automatically)
     public CeilingShelfMenu(int containerId, Inventory playerInventory, FriendlyByteBuf friendlyByteBuf)
     {
-        this(containerId, playerInventory, (CeilingShelfBlockEntity) playerInventory.player.level().getBlockEntity(friendlyByteBuf.readBlockPos()));
+        this(containerId, playerInventory, (CeilingShelfBlockEntity) playerInventory.player.getLevel().getBlockEntity(friendlyByteBuf.readBlockPos()));
     }
 
     @Override
