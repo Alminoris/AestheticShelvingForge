@@ -27,9 +27,9 @@ public class AestheticShelving
     public static final String MOD_ID = "aestheticshelving";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public AestheticShelving(FMLJavaModLoadingContext context)
+    public AestheticShelving()
     {
-        IEventBus modEventBus = context.getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
 
