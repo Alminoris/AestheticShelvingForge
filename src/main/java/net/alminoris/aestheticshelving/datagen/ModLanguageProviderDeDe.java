@@ -129,6 +129,6 @@ public class ModLanguageProviderDeDe extends LanguageProvider
             }
         }
 
-        add("itemgroup.ashelftab", "Aesthetic Shelving");
+        add("itemGroup.aestheticshelving.ashelftab", "Aesthetic Shelving");
     }
 }

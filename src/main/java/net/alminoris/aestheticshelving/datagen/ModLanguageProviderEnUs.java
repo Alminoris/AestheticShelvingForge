@@ -41,7 +41,7 @@ public class ModLanguageProviderEnUs extends LanguageProvider
             add("block." + AestheticShelving.MOD_ID + "." + path, displayName);
         }
 
-        add("itemgroup.ashelftab", "Aesthetic Shelving");
+        add("itemGroup.aestheticshelving.ashelftab", "Aesthetic Shelving");
     }
 
     public static String movePrefix(String input, String[] arr)

@@ -37,7 +37,7 @@ public class ModItemGroups
 
         @Override
         public Component getDisplayName() {
-            return Component.translatable("itemGroup." + AestheticShelving.MOD_ID + ".astrgtab");
+            return Component.translatable("itemGroup." + AestheticShelving.MOD_ID + ".ashelftab");
         }
     };
 
