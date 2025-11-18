@@ -35,6 +35,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -138,16 +139,12 @@ public class CeilingShelfBlock extends BaseEntityBlock implements SimpleWaterlog
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        if (!world.isClientSide)
+        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (player instanceof ServerPlayer serverPlayer)
+            if (blockEntity instanceof CeilingShelfBlockEntity shelf)
             {
-                
-                serverPlayer.openMenu(new SimpleMenuProvider(
-                        (containerId, inventory, pl) -> new CeilingShelfMenu(containerId, inventory, (CeilingShelfBlockEntity) blockEntity),
-                        state.getBlock().getName()
-                ));
+                NetworkHooks.openScreen(serverPlayer, shelf, pos);
             }
         }
 

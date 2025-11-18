@@ -1,5 +1,6 @@
 package net.alminoris.aestheticshelving.block.custom;
 
+import net.alminoris.aestheticshelving.block.entity.CeilingShelfBlockEntity;
 import net.minecraft.world.InteractionHand;
 import net.alminoris.aestheticshelving.block.entity.LadderShelfBlockEntity;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
@@ -32,6 +33,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -130,16 +132,12 @@ public class TowerShelfBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        if (!world.isClientSide)
+        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (player instanceof ServerPlayer serverPlayer)
+            if (blockEntity instanceof TowerShelfBlockEntity shelf)
             {
-                
-                serverPlayer.openMenu(new SimpleMenuProvider(
-                        (containerId, inventory, pl) -> new TowerShelfMenu(containerId, inventory, (TowerShelfBlockEntity) blockEntity),
-                        state.getBlock().getName()
-                ));
+                NetworkHooks.openScreen(serverPlayer, shelf, pos);
             }
         }
 

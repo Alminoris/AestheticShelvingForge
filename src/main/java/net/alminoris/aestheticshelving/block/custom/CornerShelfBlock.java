@@ -1,5 +1,6 @@
 package net.alminoris.aestheticshelving.block.custom;
 
+import net.alminoris.aestheticshelving.block.entity.CeilingShelfBlockEntity;
 import net.alminoris.aestheticshelving.block.entity.ModBlockEntities;
 import net.alminoris.aestheticshelving.block.entity.CornerShelfBlockEntity;
 import net.alminoris.aestheticshelving.menu.CornerShelfMenu;
@@ -32,6 +33,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -150,16 +152,12 @@ public class CornerShelfBlock extends BaseEntityBlock implements SimpleWaterlogg
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        if (!world.isClientSide)
+        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer)
         {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (player instanceof ServerPlayer serverPlayer)
+            if (blockEntity instanceof CornerShelfBlockEntity shelf)
             {
-                
-                serverPlayer.openMenu(new SimpleMenuProvider(
-                        (containerId, inventory, pl) -> new CornerShelfMenu(containerId, inventory, (CornerShelfBlockEntity) blockEntity),
-                        state.getBlock().getName()
-                ));
+                NetworkHooks.openScreen(serverPlayer, shelf, pos);
             }
         }
 
