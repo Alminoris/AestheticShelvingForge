@@ -43,6 +43,5 @@
     "recipes": [
       "aestheticshelving:ladder_shelf_spruce"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -43,6 +43,5 @@
     "recipes": [
       "aestheticshelving:corner_shelf_dark_oak"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
