@@ -1,12 +1,13 @@
 package net.alminoris.aestheticshelving.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import net.alminoris.aestheticshelving.block.custom.CeilingShelfBlock;
 import net.alminoris.aestheticshelving.block.entity.CeilingShelfBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -14,7 +15,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -42,10 +42,10 @@ public class CeilingShelfBlockEntityRenderer implements BlockEntityRenderer<Ceil
         poseStack.translate(0.5, 0.5, 0.5);
         switch (facing)
         {
-            case NORTH -> poseStack.mulPose(Axis.YP.rotationDegrees(0f));
-            case SOUTH -> poseStack.mulPose(Axis.YP.rotationDegrees(180F));
-            case WEST  -> poseStack.mulPose(Axis.YP.rotationDegrees(90F));
-            case EAST  -> poseStack.mulPose(Axis.YP.rotationDegrees(-90f));
+            case NORTH -> poseStack.mulPose(Vector3f.YP.rotationDegrees(0f));
+            case SOUTH -> poseStack.mulPose(Vector3f.YP.rotationDegrees(180F));
+            case WEST  -> poseStack.mulPose(Vector3f.YP.rotationDegrees(90F));
+            case EAST  -> poseStack.mulPose(Vector3f.YP.rotationDegrees(-90f));
         }
         poseStack.translate(-0.5, -0.5, -0.5);
 
@@ -59,22 +59,21 @@ public class CeilingShelfBlockEntityRenderer implements BlockEntityRenderer<Ceil
             poseStack.scale(0.25f, 0.25f, 0.25f);
             if (stack.getItem() instanceof BlockItem)
             {
-                poseStack.mulPose(Axis.YP.rotationDegrees(315));
-                poseStack.mulPose(Axis.XP.rotationDegrees(330));
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(315));
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(330));
             }
             else
             {
-                poseStack.mulPose(Axis.XP.rotationDegrees(270));
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(270));
             }
 
             itemRenderer.renderStatic(
                     stack,
-                    ItemDisplayContext.GUI,
+                    ItemTransforms.TransformType.GUI,
                     getLightLevel(entity.getLevel(), entity.getBlockPos()),
                     OverlayTexture.NO_OVERLAY,
                     poseStack,
                     bufferSource,
-                    entity.getLevel(),
                     0
             );
 

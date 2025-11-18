@@ -2,6 +2,7 @@ package net.alminoris.aestheticshelving.block;
 
 import net.alminoris.aestheticshelving.AestheticShelving;
 import net.alminoris.aestheticshelving.block.custom.*;
+import net.alminoris.aestheticshelving.item.ModItemGroups;
 import net.alminoris.aestheticshelving.item.ModItems;
 import net.alminoris.aestheticshelving.util.helper.BlockSetsHelper;
 import net.minecraft.world.item.BlockItem;
@@ -86,7 +87,7 @@ public class ModBlocks
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block)
     {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(ModItemGroups.ASHELF_TAB)));
     }
 
     public static void register(IEventBus eventBus)

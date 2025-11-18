@@ -1,7 +1,7 @@
 package net.alminoris.aestheticshelving.datagen;
 
 import net.alminoris.aestheticshelving.AestheticShelving;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.LinkedHashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ModLanguageProviderFrFr extends LanguageProvider
 {
-    public ModLanguageProviderFrFr(PackOutput output)
+    public ModLanguageProviderFrFr(DataGenerator output)
     {
         super(output, AestheticShelving.MOD_ID, "fr_fr");
     }

@@ -1,12 +1,12 @@
 package net.alminoris.aestheticshelving.datagen;
 
 import net.alminoris.aestheticshelving.block.ModBlocks;
+import net.alminoris.aestheticshelving.item.ModItemGroups;
 import net.alminoris.aestheticshelving.util.helper.BlockSetsHelper;
 import net.alminoris.aestheticshelving.util.helper.ModJsonHelper;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
+
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -16,18 +16,17 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder
 {
-    public ModRecipeProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pRegistries)
+    public ModRecipeProvider(DataGenerator pOutput)
     {
         super(pOutput);
     }
 
     @Override
-    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeExporter)
+    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> recipeExporter)
     {
         for(String name : BlockSetsHelper.WOODS)
         {
@@ -42,7 +41,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             registerCeilingShelf(recipeExporter, ModBlocks.CEILING_SHELVES.get(name).get(), block);
         }
 
-        for(String name : BlockSetsHelper.EXTRA_WOODS_AN)
+        for(String name : ModItemGroups.AN_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "arborealnature:" + name + "_log", "arborealnature:stripped_" + name + "_log",
                     "\"#/#\"", "", "");
@@ -66,7 +65,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                     "\"# #\",", "\"///\"", "");
         }
 
-        for(String name : BlockSetsHelper.EXTRA_WOODS_WF)
+        for(String name : ModItemGroups.WF_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "wildfields:" + name + "_log", "wildfields:stripped_" + name + "_log",
                     "\"#/#\"", "", "");
@@ -90,7 +89,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                     "\"# #\",", "\"///\"", "");
         }
 
-        for(String name : BlockSetsHelper.WT_WOOD_NAMES)
+        for(String name : ModItemGroups.WT_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "whisperleaftrees:" + name + "_log", "whisperleaftrees:stripped_" + name + "_log",
                     "\"#/#\"", "", "");
@@ -114,7 +113,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                     "\"# #\",", "\"///\"", "");
         }
 
-        for(String name : BlockSetsHelper.ST_WOOD_NAMES)
+        for(String name : ModItemGroups.ST_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "silverwoodtrees:" + name + "_log", "silverwoodtrees:stripped_" + name + "_log",
                     "\"#/#\"", "", "");
@@ -138,7 +137,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                     "\"# #\",", "\"///\"", "");
         }
 
-        for(String name : BlockSetsHelper.MT_WOOD_NAMES)
+        for(String name : ModItemGroups.MT_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "missingtrees:" + name + "_log", "missingtrees:stripped_" + name + "_log",
                     "\"#/#\"", "", "");
@@ -162,7 +161,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                     "\"# #\",", "\"///\"", "");
         }
 
-        for(String name : BlockSetsHelper.NSS_WOOD_NAMES)
+        for(String name : ModItemGroups.NSS_WOOD_NAMES)
         {
             ModJsonHelper.createShapedRecipe("shelf_" + name, "4", "natures_spirit:" + name.replace("_nss", "") + "_log", "natures_spirit:stripped_" + name.replace("_nss", "") + "_log",
                     "\"#/#\"", "", "");
@@ -189,7 +188,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
+        ShapedRecipeBuilder.shaped(output, 4)
                 .pattern("#/#")
                 .define('#', ing1)
                 .define('/', ing2)
@@ -200,7 +199,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerStandingShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
+        ShapedRecipeBuilder.shaped(output, 4)
                 .pattern("/#")
                 .pattern("/#")
                 .define('#', ing1)
@@ -212,7 +211,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerCornerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
+        ShapedRecipeBuilder.shaped(output, 4)
                 .pattern("#/")
                 .pattern(" #")
                 .define('#', ing1)
@@ -224,7 +223,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerTowerShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 3)
+        ShapedRecipeBuilder.shaped(output, 3)
                 .pattern(" / ")
                 .pattern("/#/")
                 .pattern("/#/")
@@ -237,7 +236,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerLadderShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing1, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 2)
+        ShapedRecipeBuilder.shaped(output, 2)
                 .pattern("#/ ")
                 .pattern("#/ ")
                 .pattern(" #/")
@@ -250,7 +249,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void registerCeilingShelf(Consumer<FinishedRecipe> recipeExporter, Block output, Block ing2)
     {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, output, 4)
+        ShapedRecipeBuilder.shaped(output, 4)
                 .pattern("# #")
                 .pattern("///")
                 .define('#', Blocks.CHAIN)

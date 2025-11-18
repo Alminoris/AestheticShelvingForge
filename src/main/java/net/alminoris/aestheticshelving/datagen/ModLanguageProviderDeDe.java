@@ -1,7 +1,7 @@
 package net.alminoris.aestheticshelving.datagen;
 
 import net.alminoris.aestheticshelving.AestheticShelving;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.LinkedHashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ModLanguageProviderDeDe extends LanguageProvider
 {
-    public ModLanguageProviderDeDe(PackOutput output)
+    public ModLanguageProviderDeDe(DataGenerator output)
     {
         super(output, AestheticShelving.MOD_ID, "de_de");
     }

@@ -2,7 +2,7 @@ package net.alminoris.aestheticshelving.datagen;
 
 import net.alminoris.aestheticshelving.AestheticShelving;
 import net.alminoris.aestheticshelving.util.helper.BlockSetsHelper;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ModLanguageProviderEnUs extends LanguageProvider
 {
-    public ModLanguageProviderEnUs(PackOutput output)
+    public ModLanguageProviderEnUs(DataGenerator output)
     {
         super(output, AestheticShelving.MOD_ID, "en_us");
     }
